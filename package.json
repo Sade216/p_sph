@@ -1,0 +1,30 @@
+{
+  "name": "p_sph",
+  "module": "index.ts",
+  "type": "module",
+  "version": "1.0",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/bun": "latest",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/passport": "^1.0.17",
+    "@types/passport-jwt": "^4.0.1"
+  },
+  "scripts": {
+    "start": "bun ./server/index.ts",
+    "dev": "bun --watch ./server/index.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "hono": "^4.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.13.0",
+    "mongoose": "^8.10.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
+  }
+}
