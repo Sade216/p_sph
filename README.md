@@ -1,6 +1,8 @@
-# Typescript project template.
+# SPH
 
-### Bun + Hono + Vite + React + MongoDB:
+Пересоздание моего дипломного проекта
+https://github.com/Sade216/SPH_client и https://github.com/Sade216/SPH_server <br/>
+с обновлённым стеком и TypeScript.
 
 ***
 
