@@ -18,32 +18,21 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import { TUserArray } from "@_types/types";
 import { timestampToData } from "@/lib/utils";
 
-
-
 function UsersTable() {
-    const [user, setUser] = useState<TUserArray>([]);
+    const [users, setUsers] = useState<TUserArray>([]);
 
     useEffect(() => {
         async function getUserData() {
             await axios.get("/api/users").then(({ data }) => {
-                setUser(data);
+                setUsers(data);
             });
         }
         getUserData();
     }, []);
-
-    // useEffect(() => {
-    //     if (user) {
-    //         user.map((data) => {
-    //             console.log(
-    //                 Object.keys(data).filter((key) => key !== "__v").map
-    //             );
-    //         });
-    //     }
-    // }, [user]);
 
     return (
         <div>
@@ -55,23 +44,21 @@ function UsersTable() {
                         <TableHead>Почта</TableHead>
                         <TableHead>Музыка</TableHead>
                         <TableHead>Альбомы</TableHead>
-                        
+
                         <TableHead>Создан</TableHead>
                         <TableHead>Обновлен</TableHead>
                         <TableHead className="text-right ">Действия</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {user &&
-                        user.map((data, key) => (
+                    {users &&
+                        users.map((data, key) => (
                             <TableRow key={key}>
                                 <TableCell className="font-medium">
                                     {data._id}
                                 </TableCell>
                                 <TableCell>{data.username}</TableCell>
-                                <TableCell>
-                                    {data.email}
-                                </TableCell>
+                                <TableCell>{data.email}</TableCell>
                                 <TableCell className="text-purple-400 hover:text-purple-200">
                                     {" "}
                                     <NavLink to="/">#All music</NavLink>{" "}

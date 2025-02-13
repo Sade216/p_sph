@@ -20,6 +20,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Button } from "@/components/ui/button";
 import { authStore, clearUser } from "@/lib/authStore";
 import { useStore } from "@tanstack/react-store";
+import { toast } from "sonner";
 
 function NavMenuButton() {
     const { isAuthenticated, user, role } = useStore(authStore);
@@ -116,7 +117,10 @@ function NavMenuButton() {
                         <DropdownMenuItem asChild>
                             <Button
                                 className="cursor-default bg-transparent w-full justify-start text-black dark:text-white hover:bg-accent"
-                                onClick={clearUser}>
+                                onClick={()=>{
+                                    clearUser()
+                                    toast('Вы вышли :(')
+                                }}>
                                 <LogOut />
                                 <span>Выйти</span>
                             </Button>

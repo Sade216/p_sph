@@ -5,6 +5,8 @@ import axios from "axios";
 import { getAuthToken } from "@/lib/axios";
 import { setUser } from "@/lib/authStore";
 
+import { Toaster } from "@/components/ui/sonner"
+
 function Layout({ children }: PropsWithChildren) {
 
     useEffect(() => {
@@ -13,7 +15,7 @@ function Layout({ children }: PropsWithChildren) {
             await axios.get("/api/users/verify").then(({ data }) => {
                 const {user} = data
                 if(user && token){
-                    setUser(user, user.role);
+                    setUser(user, user.role)
                 }
             });
         }
@@ -21,13 +23,12 @@ function Layout({ children }: PropsWithChildren) {
     }, []);
     
     return (
-        <ThemeProvider
-            defaultTheme="dark"
-            storageKey="theme">
+        <ThemeProvider defaultTheme="dark" storageKey="theme">
             <Header />
-            <div className="sm:px-5 lg:px-24 h-[calc(100vh-60px)]">
+            <div className="px-4 sm:px-10 lg:px-24 h-min-[calc(100vh-60px)]">
                 {children}
             </div>
+            <Toaster/>
         </ThemeProvider>
     );
 }

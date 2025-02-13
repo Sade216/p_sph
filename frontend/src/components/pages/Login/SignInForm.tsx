@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TUserRegister } from "@_types/types";
 import axios from "axios";
+import { toast } from "sonner";
 
 const initValue: TUserRegister = {
     username: "",
@@ -42,7 +43,8 @@ export function SignInForm({
                         },
                     }
                 )
-                .then(() => {
+                .then(({data}) => {
+                    toast(data)
                     setUserData(initValue)
                 });
         }
