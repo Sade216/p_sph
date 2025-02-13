@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 
 function Header() {
   return (
-    <header className="sticky top-0 backdrop-blur-lg flex flex-row justify-between px-4 sm:px-10 lg:px-24 h-15 items-center">
+    <header className="z-1 sticky top-0 backdrop-blur-lg flex flex-row justify-between px-4 sm:px-10 lg:px-24 h-15 items-center">
         <NavLink to='/' className='flex flex-row gap-2 text-primary hover:text-purple-500 items-center'>
             <img src={LogoSVG}/>
             <div className='hidden sm:block lg:block' >Sample Packs House</div>

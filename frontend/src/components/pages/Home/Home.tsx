@@ -13,8 +13,8 @@ function Home() {
                     <div className="flex flex-row items-center mb-5 gap-5">
                         <AudioWaveform className="size-8" />
                         <div>
-                            <div className="text-2xl">В топе</div>
-                            <div className="text-lg text-gray-400">
+                            <div className="text-xl">В топе</div>
+                            <div className=" text-gray-400">
                                 Самые прослушиваемые
                             </div>
                         </div>
@@ -27,8 +27,8 @@ function Home() {
                     <div className="flex flex-row items-center mb-5 gap-5">
                         <Disc3 className="size-8" />
                         <div>
-                            <div className="text-2xl">Плейлисты</div>
-                            <div className="text-lg text-gray-400">
+                            <div className="text-xl">Плейлисты</div>
+                            <div className="text-gray-400">
                                 Популярное
                             </div>
                         </div>
@@ -43,8 +43,8 @@ function Home() {
                     <div className="flex flex-row items-center mb-5 gap-5">
                         <Headphones className="size-8" />
                         <div>
-                            <div className="text-2xl">Для вас</div>
-                            <div className="text-lg text-gray-400">
+                            <div className="text-xl">Для вас</div>
+                            <div className="text-gray-400">
                                 {user?.username}
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect } from "react";
-import Header from "./Header/Header";
-import { ThemeProvider } from "../ui/theme-provider";
+import Header from "./components/layout/Header/Header";
+import { ThemeProvider } from "./components/ui/theme-provider";
 import axios from "axios";
 import { getAuthToken } from "@/lib/axios";
 import { setUser } from "@/lib/authStore";
