@@ -7,7 +7,7 @@ function Home() {
     const {user} = useStore(authStore);
 
     return (
-        <div className="flex flex-col-reverse sm:flex-row lg:flex-row gap-10 my-5">
+        <div className="flex flex-col-reverse xl:flex-row gap-10 my-5">
             <div className="flex flex-4 flex-col gap-5">
                 <div className="">
                     <div className="flex flex-row items-center mb-5 gap-5">
@@ -49,7 +49,7 @@ function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-secondary rounded-xl h-150 shadow-xl"></div>
+                    <div className="bg-secondary rounded-xl h-50 shadow-xl"></div>
                 </div>
             </div>
         </div>

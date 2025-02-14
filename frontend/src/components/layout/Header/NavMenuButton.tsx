@@ -9,7 +9,7 @@ import {
     DropdownMenuTrigger,
 } from "../../ui/dropdown-menu";
 import {
-    Library,
+    House,
     LogIn,
     LogOut,
     Settings,
@@ -68,15 +68,15 @@ function NavMenuButton() {
                             <DropdownMenuSeparator />
                         </>
                     )}
-                    <DropdownMenuItem asChild>
+                    <DropdownMenuItem asChild className="hidden lg:flex xl:hidden">
                         <NavLink
                             className="cursor-default [.active]:text-primary"
                             to="/">
-                            <Library />
+                            <House />
                             <span>Главная страница</span>
                         </NavLink>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
+                    <DropdownMenuItem asChild className="hidden lg:flex xl:hidden">
                         <NavLink
                             className="cursor-default [.active]:text-primary"
                             to="/profile">

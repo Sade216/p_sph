@@ -5,7 +5,7 @@ import UsersTable from "./UsersTable"
 function Admin() {
   return (
     <>
-        <Tabs defaultValue="users" className="w-full">
+        <Tabs defaultValue="users" className="w-full my-5">
             <TabsList className="h-10 gap-4">
                 <TabsTrigger className="text-lg" value="users">Пользователи</TabsTrigger>
                 <TabsTrigger className="text-lg" value="news">Новости</TabsTrigger>

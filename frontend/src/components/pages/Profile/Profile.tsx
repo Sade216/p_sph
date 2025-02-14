@@ -5,7 +5,7 @@ function Profile() {
     return (
         <>
             <div className="flex flex-col sm:flex-row lg:flex-row gap-10 my-5">
-                <div className="h-[100vh] flex-1">
+                <div className="flex-1">
                     <div className="h-50 content-center justify-items-center">
                         <Avatar className="size-32 cursor-pointer ring-1 hover:ring-2 ring-purple-600 hover:ring-purple-4">
                             <AvatarImage
