@@ -1,10 +1,16 @@
+> [!NOTE]
+>
+> ## Info/Информация
+>
+> Re-creating my graduation project https://github.com/Sade216/SPH_client and https://github.com/Sade216/SPH_server with an updated stack and TypeScript.
+>
+> ***
+> 
+> Пересоздание моего дипломного проекта https://github.com/Sade216/SPH_client и https://github.com/Sade216/SPH_server с обновлённым стеком и TypeScript.
+>
+
+
 # SPH
-
-Пересоздание моего дипломного проекта
-https://github.com/Sade216/SPH_client и https://github.com/Sade216/SPH_server <br/>
-с обновлённым стеком и TypeScript.
-
-***
 
 To install dependencies:
 
