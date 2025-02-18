@@ -2,8 +2,6 @@ import { NavLink } from "react-router";
 import { Ellipsis, SquarePen, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import axios from "axios";
-
 import {
     Table,
     TableBody,
@@ -21,17 +19,15 @@ import {
 
 import { TUserArray } from "@_types/types";
 import { timestampToData } from "@/lib/utils";
+import { deleteUserById, getAllUsers } from "@/lib/api/usersApi";
 
 function UsersTable() {
     const [users, setUsers] = useState<TUserArray>([]);
 
     useEffect(() => {
-        async function getUserData() {
-            await axios.get("/api/users").then(({ data }) => {
-                setUsers(data);
-            });
-        }
-        getUserData();
+        getAllUsers().then(({ data }) => {
+            setUsers(data);
+        });
     }, []);
 
     return (
@@ -86,7 +82,7 @@ function UsersTable() {
                                                     Изменить
                                                 </span>
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem variant="destructive">
+                                            <DropdownMenuItem onClick={() => deleteUserById(data._id)} variant="destructive">
                                                 <Trash />
                                                 <span className="cursor-default">
                                                     Удалить

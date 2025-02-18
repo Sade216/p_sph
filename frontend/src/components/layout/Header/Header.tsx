@@ -17,14 +17,14 @@ function Header() {
                     <div className="lg:block">Sample Packs House</div>
                     <Badge
                         className="scale-80"
-                        variant="destructive">{`Work still in progress...`}</Badge>
+                        variant="destructive">{`Work in progress...`}</Badge>
                 </NavLink>
                 <div className="flex flex-row gap-5">
                     <div className="gap-5 lg:hidden xl:flex items-center">
                         <NavLink
                             className="py-1 px-3 rounded-2xl  [.active]:text-primary hover:text-primary"
                             to="/">
-                            Главная страница
+                            Главная
                         </NavLink>
                         <NavLink
                             className="py-1 px-3 rounded-2xl  [.active]:text-primary hover:text-primary"

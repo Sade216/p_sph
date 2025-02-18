@@ -11,11 +11,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TUserLogin } from "@_types/types";
-import axios from "axios";
 
 import { useNavigate } from "react-router";
-import { setUser } from "@/lib/authStore";
-import { setAuthToken } from "@/lib/axios";
+import { userLogin } from "@/lib/api/authApi";
+import { LoaderCircle } from "lucide-react";
 
 const initValue: TUserLogin = {
     email: "",
@@ -27,33 +26,19 @@ export function LoginForm({
     ...props
 }: React.ComponentPropsWithoutRef<"div">) {
     const [userData, setUserData] = useState<TUserLogin>(initValue);
+    const [isLoading, setIsLoading] = useState(false)
 
     const navigate = useNavigate();
 
     async function handleLogin() {
-        if ((userData.email.length > 3) && (userData.password.length > 3)) {
-            await axios
-                .post(
-                    "/api/users/login",
-                    {
-                        email: userData.email,
-                        password: userData.password,
-                    },
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                )
-                .then((res) => {
-                    const { user, token } = res.data;
-
-                    if (user && token) {
-                        setAuthToken(token)
-                        setUser(user, user.role);
-                        navigate("/");
-                    }
-                });
+        if (userData.email.length > 3 && userData.password.length > 3) {
+            setIsLoading(true)
+            await userLogin(userData).then(() => {
+                setIsLoading(false)
+                navigate("/");
+            }).catch(()=>{
+                setIsLoading(false)
+            });
         }
     }
 
@@ -135,11 +120,16 @@ export function LoginForm({
                                 </div>
                                 <Button
                                     className="w-full"
+                                    disabled={isLoading}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         handleLogin();
                                     }}>
-                                    Войти
+                                    {isLoading ?
+                                        <LoaderCircle className="size-6 animate-spin" />
+                                        :
+                                        'Войти'
+                                    }
                                 </Button>
                             </div>
                         </div>

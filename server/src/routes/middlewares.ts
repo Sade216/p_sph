@@ -24,7 +24,7 @@ export const isAdminOrOwner = async (c: Context, id: string) => {
     const result = await UserModel.findById(id);
     if(!result) return c.text("User not found", 403);
     
-    if(result.role === "admin") return c.json(`You can't delete this user`, 401)
+    if(result.role === "admin") return c.json(`You can't modify this user`, 401)
     
         if (user.role === "admin" || String(result._id) === user.id) {
         return null;

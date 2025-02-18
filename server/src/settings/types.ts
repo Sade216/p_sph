@@ -9,6 +9,11 @@ export type TUser = {
     updatedAt: string;
 };
 
+export type TUserUpdate = {
+    username: string;
+    avatar?: string;
+};
+
 export type TUserLogin = {
     email: string,
     password: string,

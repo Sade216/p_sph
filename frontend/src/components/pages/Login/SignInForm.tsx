@@ -1,5 +1,9 @@
 import { useState } from "react";
+
 import { cn } from "@/lib/utils";
+import { userSignIn } from "@/lib/api/authApi";
+import { TUserRegister } from "@_types/types";
+
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -10,9 +14,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { TUserRegister } from "@_types/types";
-import axios from "axios";
-import { toast } from "sonner";
+import { LoaderCircle } from "lucide-react";
+
 
 const initValue: TUserRegister = {
     username: "",
@@ -25,28 +28,17 @@ export function SignInForm({
     ...props
 }: React.ComponentPropsWithoutRef<"div">) {
     const [userData, setUserData] = useState<TUserRegister>(initValue);
+    const [isLoading, setIsLoading] = useState(false)
 
     async function handleSignIn() {
         if (userData.email.length > 3 && userData.password.length > 3) {
-            console.log(userData);
-            await axios
-                .post(
-                    "/api/users",
-                    {
-                        username: userData.username,
-                        email: userData.email,
-                        password: userData.password,
-                    },
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                )
-                .then(({data}) => {
-                    toast(data)
-                    setUserData(initValue)
-                });
+            setIsLoading(true)
+            userSignIn(userData).then(() => {
+                setIsLoading(false)
+                setUserData(initValue);
+            }).catch(()=>{
+                setIsLoading(false)
+            });
         }
     }
 
@@ -121,7 +113,11 @@ export function SignInForm({
                                         e.preventDefault();
                                         handleSignIn();
                                     }}>
-                                    Зарегистрироваться
+                                        {isLoading ?
+                                        <LoaderCircle className="size-6 animate-spin" />
+                                        :
+                                        'Зарегистрироваться'                    
+                                    }
                                 </Button>
                             </div>
                         </div>

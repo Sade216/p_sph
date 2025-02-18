@@ -1,6 +1,6 @@
 import { TUser } from "@_types/types";
 import { Store } from "@tanstack/store";
-import { setAuthToken } from "./axios";
+import { setAuthToken } from "../axios";
 
 type Role = "user" | "admin" | "guest";
 
@@ -27,6 +27,16 @@ export const setUser = (user: AuthState["user"], role: Role) => {
           }));
     }
 };
+
+export const updateUser = (user: AuthState["user"], role: Role) => {
+    if(user){
+        authStore.setState((prev)=>({
+            ...prev,
+            user,
+            role
+        }))
+    }
+}
 
 // Выход
 export const clearUser = () => {

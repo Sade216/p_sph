@@ -5,7 +5,7 @@ import Admin from "./components/pages/Admin/Admin"
 import ErrorPage from "./components/pages/Error/ErrorPage"
 import Login from "./components/pages/Login/Login"
 import { useStore } from "@tanstack/react-store"
-import { authStore } from "./lib/authStore"
+import { authStore } from "./lib/store/authStore"
 import Profile from "./components/pages/Profile/Profile"
 
 function App() {

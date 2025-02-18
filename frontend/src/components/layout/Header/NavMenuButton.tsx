@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Button } from "@/components/ui/button";
-import { authStore, clearUser } from "@/lib/authStore";
+import { authStore, clearUser } from "@/lib/store/authStore";
 import { useStore } from "@tanstack/react-store";
 import { toast } from "sonner";
 
