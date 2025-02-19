@@ -3,7 +3,13 @@ import { UserModel } from "../db/models/Models";
 import { authenticateJWT, generateToken } from "../settings/passport";
 
 import bcrypt from "bcrypt";
-import { isAdminOrOwner, roleMiddleware } from "./middlewares";
+import {
+    isAdminOrOwner,
+    isUsernameAllowed,
+    isValidEmail,
+    roleMiddleware,
+} from "./middlewares";
+import type { ContentfulStatusCode, StatusCode } from "hono/utils/http-status";
 
 const userRouter = new Hono();
 
@@ -32,7 +38,16 @@ userRouter.post("/login", async (c: Context) => {
 userRouter.post("/", async (c) => {
     try {
         const body = await c.req.json();
-        console.log("body -", body);
+
+        if (!isValidEmail(body.email))
+            return c.json("Invalid email address.", 400);
+
+        if (body.username) {
+            const result = isUsernameAllowed(c, body.username);
+            const data = await result.json();
+            if(result.status !== 200) return c.json(data, result.status as ContentfulStatusCode);
+        }
+
         const hashedPass = await bcrypt.hash(body.password, 10);
         const userWithHashedPass = {
             ...body,
@@ -94,16 +109,16 @@ userRouter.delete("/:id", authenticateJWT, async (c) => {
 
         const error = await isAdminOrOwner(c, id);
         if (error) return error;
-        const deletedUser = await UserModel.findByIdAndDelete(id).select("-password");
-        
+        const deletedUser = await UserModel.findByIdAndDelete(id).select(
+            "-password"
+        );
+
         if (!deletedUser) return c.json("User not found", 404);
         return c.json("User deleted successfully", 200);
     } catch (error) {
         return c.json("Failed to delete user", 400);
     }
 });
-
-
 
 userRouter.onError((err, c) => {
     console.error("🔥 Error:", err);

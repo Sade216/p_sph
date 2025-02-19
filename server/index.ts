@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 
 import usersRouter from "./src/routes/usersRouter";
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
 //Настройки
 const app = new Hono();
@@ -28,18 +28,14 @@ app.get("*", serveStatic({ path: "././frontend/dist/index.html" }));
 
 async function start() {
     //Запуск сервера
-    if(PORT){
-        Bun.serve({
+    if (PORT) {
+        const server = Bun.serve({
             port: PORT,
             fetch: app.fetch,
         });
-        
-        console.log(
-            `Сервер -> ${process.env.SERVER_URL}:${PORT}/api`
-        );
+        console.log(`Сервер -> ${process.env.SERVER_URL}:${server.port}/api`);
     }
-    
-    
+
     //Запуск базы данных
     if (process.env.URL_DATABASE) {
         try {
