@@ -31,71 +31,70 @@ function UsersTable() {
     }, []);
 
     return (
-        <div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>_id</TableHead>
-                        <TableHead>Никнейм</TableHead>
-                        <TableHead>Почта</TableHead>
-                        <TableHead>Музыка</TableHead>
-                        <TableHead>Альбомы</TableHead>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableHead>_id</TableHead>
+                    <TableHead>Никнейм</TableHead>
+                    <TableHead>Почта</TableHead>
+                    <TableHead>Музыка</TableHead>
+                    <TableHead>Альбомы</TableHead>
+                    <TableHead>Создан</TableHead>
+                    <TableHead>Обновлен</TableHead>
+                    <TableHead className="text-right ">Действия</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {users &&
+                    users.map((data, key) => (
+                        <TableRow key={key}>
+                            <TableCell className="">{data._id}</TableCell>
+                            <TableCell>{data.username}</TableCell>
+                            <TableCell>{data.email}</TableCell>
+                            <TableCell className="text-purple-400 hover:text-purple-200">
+                                {" "}
+                                <NavLink to="/">#All music</NavLink>{" "}
+                            </TableCell>
+                            <TableCell className="text-purple-400 hover:text-purple-200">
+                                {" "}
+                                <NavLink to="/">#All albums</NavLink>{" "}
+                            </TableCell>
 
-                        <TableHead>Создан</TableHead>
-                        <TableHead>Обновлен</TableHead>
-                        <TableHead className="text-right ">Действия</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {users &&
-                        users.map((data, key) => (
-                            <TableRow key={key}>
-                                <TableCell className="font-medium">
-                                    {data._id}
-                                </TableCell>
-                                <TableCell>{data.username}</TableCell>
-                                <TableCell>{data.email}</TableCell>
-                                <TableCell className="text-purple-400 hover:text-purple-200">
-                                    {" "}
-                                    <NavLink to="/">#All music</NavLink>{" "}
-                                </TableCell>
-                                <TableCell className="text-purple-400 hover:text-purple-200">
-                                    {" "}
-                                    <NavLink to="/">#All albums</NavLink>{" "}
-                                </TableCell>
-
-                                <TableCell>
-                                    {timestampToData(data.createdAt)}
-                                </TableCell>
-                                <TableCell>
-                                    {timestampToData(data.updatedAt)}
-                                </TableCell>
-                                <TableCell className="justify-items-end">
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Ellipsis />
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent>
-                                            <DropdownMenuItem>
-                                                <SquarePen />
-                                                <span className="cursor-default">
-                                                    Изменить
-                                                </span>
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem onClick={() => deleteUserById(data._id)} variant="destructive">
-                                                <Trash />
-                                                <span className="cursor-default">
-                                                    Удалить
-                                                </span>
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                </TableBody>
-            </Table>
-        </div>
+                            <TableCell>
+                                {timestampToData(data.createdAt)}
+                            </TableCell>
+                            <TableCell>
+                                {timestampToData(data.updatedAt)}
+                            </TableCell>
+                            <TableCell className="justify-items-end">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Ellipsis />
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuItem>
+                                            <SquarePen />
+                                            <span className="cursor-default">
+                                                Изменить
+                                            </span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            onClick={() =>
+                                                deleteUserById(data._id)
+                                            }
+                                            variant="destructive">
+                                            <Trash />
+                                            <span className="cursor-default">
+                                                Удалить
+                                            </span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+            </TableBody>
+        </Table>
     );
 }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { userSignIn } from "@/lib/api/authApi";
@@ -35,12 +35,14 @@ export function SignInForm({
             setIsLoading(true)
             userSignIn(userData).then(() => {
                 setIsLoading(false)
-                setUserData(initValue);
             }).catch(()=>{
                 setIsLoading(false)
             });
         }
     }
+    useEffect(()=>{
+        console.log(userData)
+    },[userData])
 
     return (
         <div

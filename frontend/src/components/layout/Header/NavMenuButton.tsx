@@ -68,7 +68,9 @@ function NavMenuButton() {
                             <DropdownMenuSeparator />
                         </>
                     )}
-                    <DropdownMenuItem asChild className="hidden lg:flex xl:hidden">
+                    <DropdownMenuItem
+                        asChild
+                        className="hidden lg:flex xl:hidden">
                         <NavLink
                             className="cursor-default [.active]:text-primary"
                             to="/">
@@ -76,33 +78,39 @@ function NavMenuButton() {
                             <span>Главная страница</span>
                         </NavLink>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild className="hidden lg:flex xl:hidden">
-                        <NavLink
-                            className="cursor-default [.active]:text-primary"
-                            to="/profile">
-                            <User />
-                            <span>Профиль</span>
-                        </NavLink>
-                    </DropdownMenuItem>
                     {role === "admin" && (
                         <DropdownMenuItem asChild>
                             <NavLink
                                 className="cursor-default [.active]:text-primary"
-                                to="/admin">
+                                to="/crm">
                                 <ShieldAlert />
                                 <span>Админ-панель</span>
                             </NavLink>
                         </DropdownMenuItem>
                     )}
-                    <DropdownMenuItem asChild>
-                        <NavLink
-                            className="cursor-default [.active]:text-primary"
-                            to="/settings">
-                            <Settings />
-                            <span>Настройки</span>
-                        </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
+                    {isAuthenticated && (
+                        <>
+                            <DropdownMenuItem
+                                asChild
+                                className="hidden lg:flex xl:hidden">
+                                <NavLink
+                                    className="cursor-default [.active]:text-primary"
+                                    to={`/${user?.username}`}>
+                                    <User />
+                                    <span>Профиль</span>
+                                </NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <NavLink
+                                    className="cursor-default [.active]:text-primary"
+                                    to="/settings">
+                                    <Settings />
+                                    <span>Настройки</span>
+                                </NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                        </>
+                    )}
                     {!isAuthenticated && (
                         <DropdownMenuItem asChild>
                             <NavLink
@@ -117,9 +125,9 @@ function NavMenuButton() {
                         <DropdownMenuItem asChild>
                             <Button
                                 className="cursor-default bg-transparent w-full justify-start text-black dark:text-white hover:bg-accent"
-                                onClick={()=>{
-                                    clearUser()
-                                    toast('Вы вышли :(')
+                                onClick={() => {
+                                    clearUser();
+                                    toast("Вы вышли :(");
                                 }}>
                                 <LogOut />
                                 <span>Выйти</span>

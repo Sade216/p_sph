@@ -5,8 +5,11 @@ import NavMenuButton from "./NavMenuButton";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { House, Library } from "lucide-react";
+import { useStore } from "@tanstack/react-store";
+import { authStore } from "@/lib/store/authStore";
 
 function Header() {
+    const { isAuthenticated, user } = useStore(authStore);
     return (
         <>
             <header className="z-1 sticky top-0 backdrop-blur-lg flex-row justify-between px-4 sm:px-10 lg:px-24 h-15 items-center  hidden lg:flex">
@@ -26,11 +29,13 @@ function Header() {
                             to="/">
                             Главная
                         </NavLink>
-                        <NavLink
-                            className="py-1 px-3 rounded-2xl  [.active]:text-primary hover:text-primary"
-                            to="/profile">
-                            Профиль
-                        </NavLink>
+                        {isAuthenticated && (
+                            <NavLink
+                                className="py-1 px-3 rounded-2xl  [.active]:text-primary hover:text-primary"
+                                to={`/${user?.username}`}>
+                                Профиль
+                            </NavLink>
+                        )}
                     </div>
                     <div className="flex flex-row gap-2 items-center rounded-full bg-muted">
                         <ThemeToggleButton />
@@ -50,11 +55,13 @@ function Header() {
                         orientation="vertical"
                         className="h-[50%]! self-center"
                     />
-                    <NavLink
-                        to="/profile"
-                        className="content-center justify-items-center w-full [.active]:text-primary">
-                        <Library />
-                    </NavLink>
+                    {isAuthenticated && (
+                        <NavLink
+                            to={`/${user?.username}`}
+                            className="content-center justify-items-center w-full [.active]:text-primary">
+                            <Library />
+                        </NavLink>
+                    )}
                     <Separator
                         orientation="vertical"
                         className="h-[50%]! self-center"

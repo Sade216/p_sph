@@ -1,7 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { useParams } from "react-router";
 
 function Profile() {
+    const { id } = useParams();
     return (
         <>
             <div className="flex flex-col sm:flex-row lg:flex-row gap-10 my-5">

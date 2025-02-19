@@ -7,6 +7,7 @@ import Login from "./components/pages/Login/Login"
 import { useStore } from "@tanstack/react-store"
 import { authStore } from "./lib/store/authStore"
 import Profile from "./components/pages/Profile/Profile"
+import Settings from "./components/pages/Settings/Settings"
 
 function App() {
     const {isAuthenticated, role} = useStore(authStore)
@@ -14,14 +15,14 @@ function App() {
     return (
         <Layout>
             <Routes>
-                <Route index element={<Home/>} />
+                <Route index path="/" element={<Home/>} />
                 {isAuthenticated &&
                     <>
-                        <Route path='/profile' element={<Profile/>} />
-                        <Route path='/profile/:id' element={<Admin/>} />
+                        <Route path='/:id' element={<Profile/>} />
+                        <Route path='/settings' element={<Settings/>} />
                         {role === 'admin' &&
                             <>
-                                <Route path='/admin' element={<Admin/>} />
+                                <Route path='/crm' element={<Admin/>} />
                             </>
                         }
                     </>
