@@ -53,10 +53,6 @@ newsRouter.put("/:id", roleMiddleware('admin'), async (c: Context) => {
         const { id } = c.req.param();
         const body = await c.req.json();
 
-        //FIXME: добавить аналог isAdminOrOwner или сделать универсальным
-        // const error = await isAdminOrOwner(c, id);
-        // if (error) return error;
-
         const updatedNews = await NewsModel.findByIdAndUpdate(id, body, {
             new: true,
         });
@@ -71,9 +67,6 @@ newsRouter.delete("/:id", roleMiddleware('admin'),  async (c: Context) => {
     try {
         const { id } = c.req.param();
 
-        //FIXME: добавить аналог isAdminOrOwner или сделать универсальным
-        // const error = await isAdminOrOwner(c, id);
-        // if (error) return error;
         const deletedNews = await NewsModel.findByIdAndDelete(id);
 
         if (!deletedNews) return c.json("News not found", 404);

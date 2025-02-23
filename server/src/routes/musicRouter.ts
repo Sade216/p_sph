@@ -72,7 +72,6 @@ musicRouter.post("/", async (c: Context) => {
 
 musicRouter.put("/:id", async (c: Context) => {
     try {
-        // FIXME: добавить аналог isAdminOrOwner или сделать универсальным
         const user = c.get("user")
 
         const error = await isAdminOrOwner(c, user.id, EnumTypeOfApi.music);
@@ -98,7 +97,6 @@ musicRouter.delete("/:id", async (c: Context) => {
 
         const user = c.get("user")
 
-        // FIXME: добавить аналог isAdminOrOwner или сделать универсальным
         const error = await isAdminOrOwner(c, user.id, EnumTypeOfApi.music);
         if (error) return error;
         const deletedMusic = await MusicModel.findByIdAndDelete(id);
