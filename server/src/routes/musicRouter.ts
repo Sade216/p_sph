@@ -2,6 +2,7 @@ import { Hono, type Context } from "hono";
 import { authenticateJWT } from "../settings/passport";
 import { MusicModel } from "../db/models/Models";
 import mongoose from "mongoose";
+import { EnumTypeOfApi, isAdminOrOwner } from "./middlewares";
 
 const musicRouter = new Hono();
 
@@ -72,10 +73,10 @@ musicRouter.post("/", async (c: Context) => {
 musicRouter.put("/:id", async (c: Context) => {
     try {
         // FIXME: добавить аналог isAdminOrOwner или сделать универсальным
-        // const user = c.get("user")
+        const user = c.get("user")
 
-        // const error = await isAdminOrOwner(c, user.id);
-        // if (error) return error;
+        const error = await isAdminOrOwner(c, user.id, EnumTypeOfApi.music);
+        if (error) return error;
         const { id } = c.req.param();
         const body = await c.req.json();
 
@@ -95,9 +96,11 @@ musicRouter.delete("/:id", async (c: Context) => {
     try {
         const { id } = c.req.param();
 
+        const user = c.get("user")
+
         // FIXME: добавить аналог isAdminOrOwner или сделать универсальным
-        // const error = await isAdminOrOwner(c, id);
-        // if (error) return error;
+        const error = await isAdminOrOwner(c, user.id, EnumTypeOfApi.music);
+        if (error) return error;
         const deletedMusic = await MusicModel.findByIdAndDelete(id);
 
         if (!deletedMusic) return c.json("Track not found", 404);

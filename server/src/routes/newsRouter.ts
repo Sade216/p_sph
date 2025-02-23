@@ -1,6 +1,6 @@
 import { Hono, type Context } from "hono";
 import { authenticateJWT } from "../settings/passport";
-import { isAdminOrOwner } from "./middlewares";
+import { isAdminOrOwner, roleMiddleware } from "./middlewares";
 import { NewsModel } from "../db/models/Models";
 import mongoose from "mongoose";
 
@@ -28,7 +28,7 @@ newsRouter.get("/:id", async (c: Context) => {
     }
 });
 
-newsRouter.post("/", async (c: Context) => {
+newsRouter.post("/", roleMiddleware('admin'), async (c: Context) => {
     try {
         const user = c.get("user");
         if(!user) return c.json('User not found', 400)
@@ -48,7 +48,7 @@ newsRouter.post("/", async (c: Context) => {
     }
 });
 
-newsRouter.put("/:id", async (c: Context) => {
+newsRouter.put("/:id", roleMiddleware('admin'), async (c: Context) => {
     try {
         const { id } = c.req.param();
         const body = await c.req.json();
@@ -67,7 +67,7 @@ newsRouter.put("/:id", async (c: Context) => {
     }
 });
 
-newsRouter.delete("/:id", async (c: Context) => {
+newsRouter.delete("/:id", roleMiddleware('admin'),  async (c: Context) => {
     try {
         const { id } = c.req.param();
 

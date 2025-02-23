@@ -4,6 +4,7 @@ import { authenticateJWT, generateToken } from "../settings/passport";
 
 import bcrypt from "bcrypt";
 import {
+    EnumTypeOfApi,
     isAdminOrOwner,
     isUsernameAllowed,
     isValidEmail,
@@ -102,7 +103,7 @@ userRouter.put("/:id", authenticateJWT, async (c) => {
         const { id } = c.req.param();
         const body = await c.req.json();
 
-        const error = await isAdminOrOwner(c, id);
+        const error = await isAdminOrOwner(c, id, EnumTypeOfApi.music);
         if (error) return error;
 
         const updatedUser = await UserModel.findByIdAndUpdate(id, body, {
@@ -120,7 +121,7 @@ userRouter.delete("/:id", authenticateJWT, async (c) => {
     try {
         const { id } = c.req.param();
 
-        const error = await isAdminOrOwner(c, id);
+        const error = await isAdminOrOwner(c, id, EnumTypeOfApi.music);
         if (error) return error;
         const deletedUser = await UserModel.findByIdAndDelete(id).select(
             "-password"
