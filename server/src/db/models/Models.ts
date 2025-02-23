@@ -1,5 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+//----------------------------------------------------------------
+//User
+
 interface IUser extends Document {
     username: string;
     email: string;
@@ -19,13 +22,21 @@ const UserSchema = new Schema<IUser>(
     { timestamps: true }
 );
 
+// FIXME: добавить исключение для обновления
+// UserSchema.pre("findOneAndUpdate", removeRestrictedFields);
+// UserSchema.pre("", removeRestrictedFields);
+// UserSchema.pre("updateOne", removeRestrictedFields);
+// UserSchema.pre("updateMany", removeRestrictedFields);
+
 const UserModel = mongoose.model<IUser>("User", UserSchema);
+
+//----------------------------------------------------------------
+//News
 
 interface INews extends Document {
     title: string;
     content: string;
     author: mongoose.Types.ObjectId;
-    image: string;
 }
 
 const NewsSchema = new Schema<INews>(
@@ -33,33 +44,20 @@ const NewsSchema = new Schema<INews>(
         title: { type: String, required: true },
         content: { type: String, required: true },
         author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-        image: { type: String, default: "" },
     },
     { timestamps: true }
 );
 
 const NewsModel = mongoose.model<INews>("News", NewsSchema);
 
-interface IPost extends Document {
-    title: string;
-    content: string;
-    author: mongoose.Types.ObjectId;
-}
-
-const PostSchema = new Schema<IPost>(
-    {
-        title: { type: String, required: true },
-        content: { type: String, required: true },
-        author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    },
-    { timestamps: true }
-);
-
-const PostModel = mongoose.model<IPost>("Post", PostSchema);
+//----------------------------------------------------------------
+//Music
 
 interface IMusic extends Document {
     title: string;
-    artist: string;
+    description: string,
+    text: string,
+    artist: mongoose.Types.ObjectId;
     trackUrl: string;
     cover: string;
     largeCover: string;
@@ -68,7 +66,9 @@ interface IMusic extends Document {
 const MusicSchema = new Schema<IMusic>(
     {
         title: { type: String, required: true },
-        artist: { type: String, required: true },
+        description: { type: String, default: "" },
+        text: { type: String, default: ""},
+        artist: { type: Schema.Types.ObjectId, ref: "User", required: true },
         trackUrl: { type: String, required: true },
         cover: { type: String, default: "" },
         largeCover: { type: String, default: "" },
@@ -78,8 +78,12 @@ const MusicSchema = new Schema<IMusic>(
 
 const MusicModel = mongoose.model<IMusic>("Music", MusicSchema);
 
+//----------------------------------------------------------------
+//Albums
+
 interface IAlbum extends Document {
     title: string;
+    description: string;
     creator: mongoose.Types.ObjectId;
     tracks: mongoose.Types.ObjectId[];
     cover: string;
@@ -88,6 +92,7 @@ interface IAlbum extends Document {
 const AlbumSchema = new Schema<IAlbum>(
     {
         title: { type: String, required: true },
+        description: { type: String, default: ""  },
         creator: { type: Schema.Types.ObjectId, ref: "User", required: true },
         tracks: [{ type: Schema.Types.ObjectId, ref: "Music" }],
         cover: { type: String, default: "" },
@@ -97,6 +102,8 @@ const AlbumSchema = new Schema<IAlbum>(
 
 const AlbumModel = mongoose.model<IAlbum>("Album", AlbumSchema);
 
-export { UserModel, NewsModel, PostModel, MusicModel, AlbumModel };
+//Export
 
-export type { IUser, INews, IPost, IMusic, IAlbum };
+export { UserModel, NewsModel, MusicModel, AlbumModel };
+
+export type { IUser, INews, IMusic, IAlbum };

@@ -75,11 +75,24 @@ userRouter.get("/", async (c) => {
 userRouter.get("/:id", authenticateJWT, async (c) => {
     try {
         const { id } = c.req.param();
+        console.log('1')
         const user = await UserModel.findById(id).select("-password");
         if (!user) return c.json("User not found", 404);
         return c.json(user);
     } catch (error) {
         return c.json("Invalid User ID", 400);
+    }
+});
+
+// Получить одного пользователя по Username
+userRouter.get("/getByUsername/:id", authenticateJWT, async (c) => {
+    try {
+        const { id } = c.req.param();
+        const user = await UserModel.findOne({username: id}).select("-password");
+        if (!user) return c.json("User not found", 404);
+        return c.json(user);
+    } catch (error) {
+        return c.json("Invalid Username", 400);
     }
 });
 

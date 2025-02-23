@@ -6,6 +6,8 @@ import { serveStatic } from "hono/bun";
 import mongoose from "mongoose";
 
 import usersRouter from "./src/routes/usersRouter";
+import newsRouter from "./src/routes/newsRouter";
+import musicRouter from "./src/routes/musicRouter";
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,16 +19,15 @@ app.use("*", logger());
 //Routes
 const apiRoutes = app
     .basePath("/api")
-    .get("/", (c) => {
-        return c.redirect("/api/test");
-    })
-    .route("/users", usersRouter);
+    .route("/users", usersRouter)
+    .route("/news", newsRouter)
+    .route("/music", musicRouter)
 
 //Получение статики с фронта
 app.get("*", serveStatic({ root: "././frontend/dist" }));
 app.get("*", serveStatic({ path: "././frontend/dist/index.html" }));
 
-async function start() {
+async function StartServer() {
     //Запуск сервера
     if (PORT) {
         const server = Bun.serve({
@@ -48,6 +49,6 @@ async function start() {
     } else return console.log("Env строка базы данных не найдена...");
 }
 
-start();
+StartServer();
 
 export type ApiRoutes = typeof apiRoutes;
