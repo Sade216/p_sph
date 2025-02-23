@@ -6,7 +6,17 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export function timestampToData(time: string) {
+export function timestampToData(time: string, withTime = true) {
+    if(!time) return '~'
+
+    if(!withTime){
+        return new Date(time).toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric"
+        });
+    }
+
     return new Date(time).toLocaleDateString(undefined, {
         year: "numeric",
         month: "numeric",
