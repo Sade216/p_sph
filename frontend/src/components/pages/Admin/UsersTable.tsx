@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { Ellipsis, SquarePen, Trash } from "lucide-react";
+import { Ellipsis, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import {
@@ -20,6 +20,8 @@ import {
 import { TUserArray } from "@_types/types";
 import { timestampToData } from "@/lib/utils";
 import { deleteUserById, getAllUsers } from "@/lib/api/usersApi";
+import EditProfile from "./components/EditProfile";
+import { Button } from "@/components/ui/button";
 
 function UsersTable() {
     const [users, setUsers] = useState<TUserArray>([]);
@@ -72,21 +74,21 @@ function UsersTable() {
                                         <Ellipsis />
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
-                                        <DropdownMenuItem>
-                                            <SquarePen />
-                                            <span className="cursor-default">
-                                                Изменить
-                                            </span>
+                                        <DropdownMenuItem asChild>
+                                            <EditProfile user={data} />
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem
-                                            onClick={() =>
-                                                deleteUserById(data._id)
-                                            }
-                                            variant="destructive">
-                                            <Trash />
-                                            <span className="cursor-default">
-                                                Удалить
-                                            </span>
+                                        <DropdownMenuItem asChild>
+                                            <Button
+                                                className="w-full"
+                                                onClick={() =>
+                                                    deleteUserById(data._id)
+                                                }
+                                                variant="destructive">
+                                                <Trash />
+                                                <span className="cursor-default">
+                                                    Удалить
+                                                </span>
+                                            </Button>
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>

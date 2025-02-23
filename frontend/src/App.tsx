@@ -8,9 +8,15 @@ import { useStore } from "@tanstack/react-store"
 import { authStore } from "./lib/store/authStore"
 import Profile from "./components/pages/Profile/Profile"
 import Settings from "./components/pages/Settings/Settings"
+import { useEffect } from "react"
+import { userVerifyLogin } from "./lib/api/authApi"
 
 function App() {
     const {isAuthenticated, role} = useStore(authStore)
+
+    useEffect(() => {
+        userVerifyLogin()
+    }, []);
 
     return (
         <Layout>

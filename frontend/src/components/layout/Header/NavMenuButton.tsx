@@ -28,7 +28,7 @@ function NavMenuButton() {
         <>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Avatar className="cursor-pointer ring-1 hover:ring-2 ring-purple-600 hover:ring-purple-4 00">
+                    <Avatar className="cursor-pointer ring-1 hover:ring-2 ring-purple-600 hover:ring-purple-4">
                         <AvatarImage
                             src={user?.avatar}
                             alt={user?.username}

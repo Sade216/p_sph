@@ -1,17 +1,11 @@
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren } from "react";
 import { ThemeProvider } from "./components/ui/theme-provider";
 import { Toaster } from "@/components/ui/sonner"
 
-import { userVerifyLogin } from "./lib/api/authApi";
 
 import Header from "./components/layout/Header/Header";
 
 function Layout({ children }: PropsWithChildren) {
-
-    useEffect(() => {
-        userVerifyLogin()
-    }, []);
-    
     return (
         <ThemeProvider defaultTheme="dark" storageKey="theme">
             <Header />

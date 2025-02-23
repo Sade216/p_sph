@@ -4,7 +4,7 @@ import ThemeToggleButton from "./ThemeToggleButton";
 import NavMenuButton from "./NavMenuButton";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { House, Library } from "lucide-react";
+import { House, User } from "lucide-react";
 import { useStore } from "@tanstack/react-store";
 import { authStore } from "@/lib/store/authStore";
 
@@ -59,7 +59,7 @@ function Header() {
                         <NavLink
                             to={`/${user?.username}`}
                             className="content-center justify-items-center w-full [.active]:text-primary">
-                            <Library />
+                            <User />
                         </NavLink>
                     )}
                     <Separator

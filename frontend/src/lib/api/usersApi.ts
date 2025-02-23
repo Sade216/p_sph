@@ -13,6 +13,11 @@ export async function getUserById(id: string) {
     return data;
 }
 
+export async function getUserByUsername(id: string) {
+    const { data } = await axios.get(apiUrl + `/users/getByUsername/${id}`);
+    return data;
+}
+
 //need test
 export async function updateUserById(id: string, user: TUserUpdate) {
     const updatedUser = await axios.put(
